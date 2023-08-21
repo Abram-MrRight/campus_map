@@ -8,7 +8,7 @@ Search for locations, buildings, and facilities.
 Get information about various points of interest on campus.
 Responsive design for a seamless experience on different devices.
 ## Installation
-Clone the repository: git clone https://github.com/iraqooh/maplet.git
+Clone the repository: git clone https://github.com/Abram-MrRight/campus_map.git
 Install the required dependencies: pip install -r requirements.txt
 Configure your database settings in settings.py.
 Apply migrations: python manage.py migrate
@@ -29,4 +29,4 @@ Create a pull request.
 This project is licensed under the Makerere University License.
 
 ## Contact
-For any questions or suggestions, feel free to contact us at iraqooh@gmail.com.
+For any questions or suggestions, feel free to contact us at atongkurabraham@gmail.com.
