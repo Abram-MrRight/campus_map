@@ -1,0 +1,87 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{location.name}}
+{% endblock title %}
+
+{% load static %}
+
+{% block content %}
+    <div class="grid grid-cols-5 gap-6 mt-4">
+        <div class="col-span-3">
+            <div class="w-full min-h-[500px]">
+                {{map | safe}}
+            </div>
+        </div>
+        <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+            <h2 class="mb-12 text-2xl text-center">Map of {{location.name}}</h2>
+            <div id="container">
+                <div class="grid grid-cols-5 gap-4 items-center bg-white rounded-xl p-2 ">
+                    <div class="col-span-2">
+                        <p class="text-lg">Latitude:</p>
+                    </div>
+                    <div class="col-span-3">
+                        <h3 class="text-xl">{{location.latitude}}</h3>
+                    </div>
+                </div>
+                <div class="grid grid-cols-5 gap-4 mt-4 items-center bg-white rounded-xl p-2 ">
+                    <div class="col-span-2">
+                        <p class="text-lg">Longitude:</p>
+                    </div>
+                    <div class="col-span-3">
+                        <h3 class="text-xl">{{location.longitude}}</h3>
+                    </div>
+                </div>
+                <div class="grid grid-cols-5 gap-4 mt-4 items-center bg-white rounded-xl p-2 ">
+                    <div class="col-span-2">
+                        <p class="text-lg">Category</p>
+                    </div>
+                    <div class="col-span-3">
+                        <h3 class="text-xl">{{location.category}}</h3>
+                    </div>
+                </div>
+                <div class="mt-4 items-center bg-white rounded-xl p-2">
+                    {% if location.image %}
+                    <img src="{{location.image.url}}" alt="{{location.name}}" class="rounded-xl w-full">
+                    {% else %}
+                    <img src="{% static 'images/no_loc_image.jpg' %}" alt="{{location.name}}" class="rounded-xl w-full">
+                    {% endif %}
+                </div>
+            </div>
+            {% if request.user == location.created_by %}
+            <div class="rounded-xl text-center">
+                <a href="{% url 'location:edit' location.name %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">Edit Location</a>
+                <a href="{% url 'location:delete' location.name %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Remove Location from Map</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Photos</h2>
+        <div class="grid grid-cols-3 gap-3">
+            
+        </div>
+    </div>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Similar Places</h2>
+        <div class="grid grid-cols-3 gap-3">
+            {% for place in similar_places %}
+            <div>
+                <a href="{% url 'location:place' place.name %}">
+                    <div class="grid grid-cols-5 gap-4 items-center bg-white rounded-xl p-2">
+                        {% if place.image %}
+                        <div class="col-span-1">
+                            <img src="{{place.image.url}}" class="rounded-xl" alt="{{place.name}}">
+                        </div>
+                        {% endif %}
+                        <div class="col-span-4">
+                            <h3 class="text-xl">{{place.name}}</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+    
